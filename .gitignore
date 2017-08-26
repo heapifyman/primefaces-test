@@ -1,1 +1,4 @@
 /target/
+/.idea
+primefaces-test.iml
+rebel.xml
