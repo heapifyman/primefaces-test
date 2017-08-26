@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 
-    <h:head>   
-        <title>PrimeFaces Test</title>
-    </h:head>
-    <h:body>
-        
-        <h1>#{testView.testString}</h1>
-        
-    </h:body>
+<h:head>
+    <title>PrimeFaces Test</title>
+</h:head>
+<h:body>
+    <div>
+        <h:form id="form">
+            <p:panelGrid>
+                <p:slider for="temperatureMin,temperatureMax"
+                          display="temperatureRange"
+                          minValue="#{testView.minTemperature}"
+                          maxValue="#{testView.maxTemperature}"
+                          style="width: 500px;"
+                          range="true"
+                          displayTemplate="[{min}&#176;C, {max}&#176;C]">
+                    <p:ajax event="slideEnd"
+                            process="temperatureMin temperatureMax"
+                            update="temperatureNormalisation temperatureNormalisationValue temperatureNormalisationSlider"/>
+                </p:slider>
+                <h:outputText id="temperatureRange"
+                              value="[#{testView.temperatureMin}&#176;C, #{testView.temperatureMax}&#176;C]"/>
+                <h:inputHidden id="temperatureMin"
+                               value="#{testView.temperatureMin}"
+                               valueChangeListener="#{testView.temperatureMinChanged}"/>
+                <h:inputHidden id="temperatureMax"
+                               value="#{testView.temperatureMax}"
+                               valueChangeListener="#{testView.temperatureMaxChanged}"/>
+            </p:panelGrid>
+
+            <!-- temperature normalisation -->
+            <p:panelGrid>
+                <p:slider id="temperatureNormalisationSlider"
+                          for="temperatureNormalisationValue"
+                          display="temperatureNormalisation"
+                          style="width: 500px;"
+                          minValue="#{testView.minTemperatureNormalisation}"
+                          maxValue="#{testView.maxTemperatureNormalisation}"
+                          displayTemplate="{value} &#176;C">
+                    <p:ajax event="slideEnd" process="temperatureNormalisationValue"/>
+                </p:slider>
+                <h:outputText id="temperatureNormalisation" value="#{testView.temperatureNormalisation} &#176;C"/>
+                <h:inputHidden id="temperatureNormalisationValue"
+                               value="#{testView.temperatureNormalisation}"
+                               valueChangeListener="#{testView.temperatureNormalisationChanged}"/>
+            </p:panelGrid>
+        </h:form>
+    </div>
+
+</h:body>
 </html>
