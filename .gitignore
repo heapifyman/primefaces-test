@@ -1,4 +1,8 @@
 /target/
+/.vscode
+/.settings
+.project
+.classpath
 /.idea
 primefaces-test.iml
 rebel.xml
