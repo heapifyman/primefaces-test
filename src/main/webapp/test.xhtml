@@ -19,7 +19,13 @@
                           displayTemplate="[{min}&#176;C, {max}&#176;C]">
                     <p:ajax event="slideEnd"
                             process="temperatureMin temperatureMax"
-                            update="temperatureNormalisation temperatureNormalisationValue temperatureNormalisationSlider"/>
+                            update="temperatureNormalisationValue"
+                            oncomplete="updateTemperatureNormalisation"/>
+                    <p:remoteCommand name="updateTemperatureNormalisation"
+                                     update="temperatureNormalisation"
+                                     oncomplete="updateTemperatureNormalisationSlider"/>
+                    <p:remoteCommand name="updateTemperatureNormalisationSlider"
+                                    update="temperatureNormalisationSlider"/>
                 </p:slider>
                 <h:outputText id="temperatureRange"
                               value="[#{testView.temperatureMin}&#176;C, #{testView.temperatureMax}&#176;C]"/>
